@@ -1,24 +1,14 @@
 Stripe-Easy-for-Meteor
 ======================
 
-Subsciptions with Stripe made easy for Meteor
+Subsciptions with Stripe made easy for Meteor.
+
+If you are looking for a quick and simple way to add subscriptions to your Meteor app, this is a great option.
 
 ## Quick Start
 
-1. Setup your account/subscriptions on Stripe and install this package into your project.
-2. Define your publishable and secret test keys from your Stripe account in `Meteor.settings`.
-```
-{
-  "public" : {
-    "Stripe" : {
-      "publicKey" : "YOUR_PUBLISHABLE_KEY"
-    }
-  },
-  "Stripe" : {
-    "secretKey" : "YOUR_SECRET_KEY"
-  }
-}
-```
+1. Install this package into your project.
+2. Define your publishable and secret test keys in `Meteor.settings`.
 3. Insert `{{> stripeEasyInputs}}` somewhere in your `<form>`.
 4. In the `'submit form'` template event function, make sure there is a `Meteor.user()` and handle the subscription like this:
 ```
@@ -37,7 +27,19 @@ Awesome. Subscriptions are up.
 1. Sign up for an account at Stripe - https://stripe.com/
 2. Open up your dashboard and create some subscription plans. **Make note of the plan id** for each plan you make. You will need this in Step 6 - https://dashboard.stripe.com/
 3. Find your Stripe **test** api keys - https://dashboard.stripe.com/account/apikeys 
-4. Set up your test keys by A) creating a `settings.json` file in the root of your project directory, B) copy/paste the code from the Quick Start guide above, C) Replace the placeholder text with your appropriate keys. D) Startup Meteor with setting by running `meteor --settings settings.json` in your terminal.
+4. Set up your test keys by A) creating a `settings.json` file in the root of your project directory, B) copy/paste the code below replacing the placeholder text with your appropriate keys. C) Startup Meteor with those setting by running `meteor --settings settings.json` in your terminal.
+```
+{
+  "public" : {
+    "Stripe" : {
+      "publicKey" : "YOUR_PUBLISHABLE_KEY"
+    }
+  },
+  "Stripe" : {
+    "secretKey" : "YOUR_SECRET_KEY"
+  }
+}
+```
 5. Include the `{{> stripeEasyInputs}}` template inside of a form tag.
 ```
 <form>
@@ -93,3 +95,12 @@ Easily add CSS classes to the inputs by passing `{inputClasses: "class-name clas
 
 ### Plays nicely with Bootstrap and Font-Awesome
 
+Has some error class validation built into the input tabs, and also adds icons when bootstrap and font-awesome are added to your project.
+
+## TODO
+
+1. Test error cases suggested by Stripe.
+2. Write more TODOs.
+
+**License**
+MIT - http://opensource.org/licenses/MIT
