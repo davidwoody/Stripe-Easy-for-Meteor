@@ -1,3 +1,16 @@
+// TEST WHETHER STRIPE IS DEFINED OR NOT
+if(typeof Stripe === "undefined"){
+  console.warn("Stripe is not defined");
+}
+
+// if there is not a publishable key set
+if(!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.Stripe || !Meteor.settings.public.Stripe.publicKey){
+  console.warn("Stripe publishable key is not set in Meteor.settings.public");
+} else {
+  Stripe.setPublishableKey(Meteor.settings.public.Stripe.publicKey);
+}
+
+
 StripeEasy = {};
 
 // SUBSCRIBE: needs an object with number, cvc, exp_month,
@@ -6,8 +19,8 @@ _.extend(StripeEasy, {
   // obj.cvc
   // obj.exp_month
   // obj.exp_year
-  // obj.sub_name
-  subscribe: function (obj, callback) {
+  // plan_id
+  subscribe: function (obj, plan_id, callback) {
     if(!Meteor.user()){
       return console.warn("A logged in user is required before calling StripeEasy.subscribe method");
     }
@@ -16,21 +29,14 @@ _.extend(StripeEasy, {
       return console.warn("Please provide a callback function for the StripeEasy.subscribe method");
     }
 
-    Stripe.card.createToken({
-      number: obj.number,
-      cvc: obj.cvc,
-      exp_month: obj.exp_month,
-      exp_year: obj.exp_year
-    }, function(status, response){
-      console.log("STATUS: " + status);
+    Stripe.card.createToken(obj, function(status, response){
       if(response.error){
+        console.log("STATUS: " + status);
         console.warn(response.error);
         return alert(response.error);
       } else {
-        console.log("RESPONSE: ");
-        console.log(response);
         var token = response.id;
-        Meteor.call("stripeEasySubscribe", token, obj.sub_name, callback);
+        Meteor.call("stripeEasySubscribe", token, plan_id, callback);
       }
     });
   }, //subscribe
@@ -71,16 +77,23 @@ _.extend(StripeEasy, {
     _.extend(StripeEasy.configurable, obj);
   }, //config
 
+  update: function(plan_id, callback){
+    if(!Meteor.user()){
+      return console.warn("A logged in user is required before calling StripeEasy.update method");
+    }
+
+    if(!callback){
+      return console.warn("Please provide a callback function for the StripeEasy.update method");
+    }
+    Meteor.call('stripeEasyUpdate', plan_id, callback);
+  }, //update
+
+  cancel: function(callback){
+    if(!callback){
+      return console.warn("Please provide a callback function for the StripeEasy.cancel method");
+    }
+    Meteor.call('stripeEasyCancel', callback);
+  }, //cancel
+
 });
 
-// if there is not a publishable key set
-if(!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.Stripe || !Meteor.settings.public.Stripe.publicKey){
-  console.warn("Stripe publishable key is not set in Meteor.settings.public");
-} else {
-  Stripe.setPublishableKey(Meteor.settings.public.Stripe.publicKey);
-}
-
-// TEST WHETHER STRIPE IS DEFINED OR NOT
-if(typeof Stripe === "undefined"){
-  console.warn("Stripe is not defined");
-}

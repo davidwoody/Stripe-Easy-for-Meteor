@@ -1,7 +1,7 @@
 Package.describe({
   summary: "Subsciptions with Stripe made easy for Meteor",
   version: "0.0.1",
-  git: " \* Fill me in! *\ "
+  git: "https://github.com/davidwoody/Stripe-Easy-for-Meteor.git"
 });
 
 Npm.depends({ "stripe": "2.8.0" });

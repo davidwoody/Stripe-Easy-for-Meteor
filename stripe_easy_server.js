@@ -13,7 +13,7 @@ if(typeof Stripe === "undefined"){
 
 
 Meteor.methods({
-  stripeEasySubscribe: function(token, planId){
+  stripeEasySubscribe: function(token, plan_id){
     if(!this.userId){
       throw new Meteor.Error(401, "Not an authorized user.");
     }
@@ -23,7 +23,6 @@ Meteor.methods({
 
     var user = Meteor.users.findOne({_id: this.userId});
     var email = user.emails[0].address;
-    console.log(email);
 
     var bound = Meteor.bindEnvironment(function(err, customer){
       if(err) {
@@ -33,19 +32,80 @@ Meteor.methods({
       else {
         console.log(customer);
         console.log(customer.id);
-        console.log(planId);
+        console.log("subscription data!!!!!");
+        console.log(customer.subscriptions.data[0]);
         // update the user object
-        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.id": customer.id, "profile.stripe.planId": planId}});
-        future.return();
+        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.customerId": customer.id, "profile.stripe.subscription": customer.subscriptions.data[0]}});
+        future.return(customer);
       }
     });
     
     Stripe.customers.create({
       card: token,
-      plan: planId,
+      plan: plan_id,
       email: email
     }, bound);
     
+    return future.wait();
+  }, // stripeEasySubscribe
+  stripeEasyUpdate: function(plan_id){
+    if(!this.userId){
+      throw new Meteor.Error(401, "Not an authorized user.");
+    }
+
+    var Future = Npm.require("fibers/future");
+    var future = new Future();
+    var user = Meteor.users.findOne({_id: this.userId});
+
+    var bound = Meteor.bindEnvironment(function(err, subscription){
+      if(err) {
+        console.warn(err);
+        future.return(new Meteor.Error(500, err));
+      }
+      else {
+        console.log(subscription);
+        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.subscription": subscription}});
+        future.return(subscription);
+      }
+    });
+
+    Stripe.customers.updateSubscription(
+      user.profile.stripe.customerId,
+      user.profile.stripe.subscription.id,
+      { plan: plan_id },
+      bound
+    );
+
+    return future.wait();
+  },
+
+  stripeEasyCancel: function(){
+    if(!this.userId){
+      throw new Meteor.Error(401, "Not an authorized user.");
+    }
+
+    var Future = Npm.require("fibers/future");
+    var future = new Future();
+    var user = Meteor.users.findOne({_id: this.userId});
+
+    var bound = Meteor.bindEnvironment(function(err, subscription){
+      if(err) {
+        console.warn(err);
+        future.return(new Meteor.Error(500, err));
+      }
+      else {
+        console.log(subscription);
+        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.subscription": subscription}});
+        future.return(subscription);
+      }
+    });
+
+    Stripe.customers.cancelSubscription(
+      user.profile.stripe.customerId,
+      user.profile.stripe.subscription.id,
+      bound
+    );
+
     return future.wait();
   }
 });
