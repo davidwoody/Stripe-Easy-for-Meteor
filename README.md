@@ -77,7 +77,9 @@ Returns an object to pass to `StripeEasy.subscribe()`. Where `e` is a jQuery sub
 
 ### StripeEasy.subscribe(obj, plan_id, callback)
 
-Subscribes a new user to the specified plan_id. The callback function should have two arguments, an `error` and a `result` argument. Where `obj` is the object returned from `StripeEasy.submitHelper(e)` and `callback` is a function to call after Stripe responds. On success it will modify the currently logged in user's `profile.stripe` to have a `customerId` and a `subscription` property.
+Where `obj` is the object returned from `StripeEasy.submitHelper(e)`. 
+
+The callback function should have two arguments, an `error` and a `result` argument. On success, it subscribes the curretnly logged in user to the specified plan_id and will modify the user's `profile.stripe` to have a `customerId` and a `subscription` property.
 
 ### StripeEasy.update(plan_id, callback)
 
@@ -95,12 +97,13 @@ Easily add CSS classes to the inputs by passing `{inputClasses: "input-lg custom
 
 ### Plays nicely with Bootstrap and Font-Awesome
 
-Has some bootstrap error class validation built into the input tabs, and also adds icons when bootstrap and font-awesome are added to your project.
+Has bootstrap error class validation built into the inputs on blur, and also adds icons when bootstrap and font-awesome are added to your project.
 
 ## TODO
 
 1. Test error cases suggested by Stripe.
-2. Write more TODOs.
+2. Write some tests.
+3. Write more TODOs.
 
 **License**
 MIT - http://opensource.org/licenses/MIT
