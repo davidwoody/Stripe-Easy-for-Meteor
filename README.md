@@ -77,25 +77,25 @@ Returns an object to pass to `StripeEasy.subscribe()`. Where `e` is a jQuery sub
 
 ### StripeEasy.subscribe(obj, plan_id, callback)
 
-Subscribes a new user to the specified plan_id. The callback function should have two arguments, an `error` and a `result` argument. Where `obj` is the object returned from `StripeEasy.submitHelper(e)` and `callback` is a function to call after Stripe responds.
+Subscribes a new user to the specified plan_id. The callback function should have two arguments, an `error` and a `result` argument. Where `obj` is the object returned from `StripeEasy.submitHelper(e)` and `callback` is a function to call after Stripe responds. On success it will modify the currently logged in user's `profile.stripe` to have a `customerId` and a `subscription` property.
 
 ### StripeEasy.update(plan_id, callback)
 
 Where `plan_id` is the new plan_id to update to.
 
-The callback function should have two arguments, an `error` and a `result` argument.
+The callback function should have two arguments, an `error` and a `result` argument. On success, will update the currently logged in user's `profile.stripe.subscription` property with the new subscription and return the subscription object.
 
 ### StripeEasy.cancel(callback)
 
-Cancels the currently logged in users subscription plan. The callback function should have two arguments, an `error` and a `result` argument.
+Cancels the currently logged in users subscription plan. The callback function should have two arguments, an `error` and a `result` argument. On success, will update the currently logged in user's `profile.stripe.subscription` property.
 
 ### StripeEasy.config(obj)
 
-Easily add CSS classes to the inputs by passing `{inputClasses: "class-name class-name"}`to the StripeEasy.config.
+Easily add CSS classes to the inputs by passing `{inputClasses: "input-lg custom-class-name"}`to the StripeEasy.config function.
 
 ### Plays nicely with Bootstrap and Font-Awesome
 
-Has some error class validation built into the input tabs, and also adds icons when bootstrap and font-awesome are added to your project.
+Has some bootstrap error class validation built into the input tabs, and also adds icons when bootstrap and font-awesome are added to your project.
 
 ## TODO
 
