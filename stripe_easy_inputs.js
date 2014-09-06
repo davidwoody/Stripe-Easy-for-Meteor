@@ -13,7 +13,6 @@ Template.stripeEasyInputs.events({
     validInput(e, valid);
   },
   'blur [name="expire"]': function(e){
-    console.log("keyup number");
     var val = $(e.target).val().split("/");
     if(val[1] && val[1].length === 2){
       val[1] = "20" + val[1];

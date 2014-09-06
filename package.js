@@ -1,6 +1,7 @@
 Package.describe({
   summary: "Subsciptions with Stripe made easy for Meteor",
   version: "0.0.1",
+  name: "woody:stripe-easy",
   git: "https://github.com/davidwoody/Stripe-Easy-for-Meteor.git"
 });
 
@@ -13,11 +14,9 @@ Package.onUse(function(api) {
 
   var client = ['stripe_checkout.js', 'stripe_client.js', 'stripe_easy_client.js', 'stripe_easy_inputs.html', 'stripe_easy_inputs.js'];
   var server = ['stripe_easy_server.js'];
-  var both = [];
 
   api.addFiles(client, 'client');
   api.addFiles(server, 'server');
-  api.addFiles(both);
 
   api.export('StripeEasy', 'client');
 });

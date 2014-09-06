@@ -30,10 +30,10 @@ Meteor.methods({
         future.return(new Meteor.Error(400, err.message));
       }
       else {
-        console.log(customer);
-        console.log(customer.id);
-        console.log("subscription data!!!!!");
-        console.log(customer.subscriptions.data[0]);
+        // console.log(customer);
+        // console.log(customer.id);
+        // console.log("subscription data!!!!!");
+        // console.log(customer.subscriptions.data[0]);
         // update the user object
         Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.customerId": customer.id, "profile.stripe.subscription": customer.subscriptions.data[0]}});
         future.return(customer);
@@ -60,10 +60,10 @@ Meteor.methods({
     var bound = Meteor.bindEnvironment(function(err, subscription){
       if(err) {
         console.warn(err);
-        future.return(new Meteor.Error(500, err));
+        future.return(new Meteor.Error(400, err.message));
       }
       else {
-        console.log(subscription);
+        // console.log(subscription);
         Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.subscription": subscription}});
         future.return(subscription);
       }
@@ -94,7 +94,7 @@ Meteor.methods({
         future.return(new Meteor.Error(400, err.message));
       }
       else {
-        console.log(subscription);
+        // console.log(subscription);
         Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.subscription": subscription}});
         future.return(subscription);
       }
