@@ -27,7 +27,7 @@ Meteor.methods({
     var bound = Meteor.bindEnvironment(function(err, customer){
       if(err) {
         console.warn(err);
-        future.return(new Meteor.Error(400, err.message));
+        future.throw(new Meteor.Error(400, err.message));
       }
       else {
         // console.log(customer);
@@ -60,7 +60,7 @@ Meteor.methods({
     var bound = Meteor.bindEnvironment(function(err, subscription){
       if(err) {
         console.warn(err);
-        future.return(new Meteor.Error(400, err.message));
+        future.throw(new Meteor.Error(400, err.message));
       }
       else {
         // console.log(subscription);
@@ -91,7 +91,7 @@ Meteor.methods({
     var bound = Meteor.bindEnvironment(function(err, subscription){
       if(err) {
         console.warn(err);
-        future.return(new Meteor.Error(400, err.message));
+        future.throw(new Meteor.Error(400, err.message));
       }
       else {
         // console.log(subscription);

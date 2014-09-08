@@ -29,6 +29,8 @@ _.extend(StripeEasy, {
       return console.warn("Please provide a callback function for the StripeEasy.subscribe method");
     }
 
+    Stripe.setPublishableKey(Meteor.settings.public.Stripe.publicKey);
+
     Stripe.card.createToken(obj, function(status, response){
       if(response.error){
         console.log("STATUS: " + status);
