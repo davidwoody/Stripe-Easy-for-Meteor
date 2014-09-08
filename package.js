@@ -1,5 +1,5 @@
 Package.describe({
-  summary: "Subsciptions with Stripe made easy for Meteor",
+  summary: "Subsciptions with Stripe made easy for Meteor.",
   version: "0.0.1",
   name: "woody:stripe-easy",
   git: "https://github.com/davidwoody/Stripe-Easy-for-Meteor.git"
