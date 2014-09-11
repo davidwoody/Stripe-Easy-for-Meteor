@@ -7,7 +7,7 @@ If you are looking for a quick and simple way to add subscriptions to your Meteo
 
 ## Quick Start
 
-1. Install this package into your project.
+1. Install this package into your project `meteor add woody:stripe-easy`.
 2. Define your publishable and secret test keys in `Meteor.settings`.
 3. Insert `{{> stripeEasyInputs}}` somewhere in your `<form>`.
 4. In the `'submit form'` template event function, make sure there is a `Meteor.user()` and handle the subscription like this:
