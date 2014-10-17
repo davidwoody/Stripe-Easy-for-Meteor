@@ -47,7 +47,7 @@ Awesome. Subscriptions are up.
   <button type="submit">Submit</button>
 </form>
 ```
-6. Handle the submit event on the form. Note that the StripeEasy functions require a `Meteor.user()`. So assuming you either already have a user logged in or your call `Meteor.createUser` first, you would handle the event as follows:
+6. Handle the submit event on the form. Note that the StripeEasy functions require a `Meteor.user()` with an `emails` property (see API - StripeEasy - client below for more details). So assuming you either already have a user logged in or your call `Meteor.createUser` first, you would handle the event as follows:
 ```
 'submit form': function (e) {
   e.preventDefault();
