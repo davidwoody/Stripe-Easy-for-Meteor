@@ -69,7 +69,13 @@ StripeEasy.update(plan_id, function(err, result){
 
 ## API - StripeEasy - (client)
 
-**Note:** A `Meteor.user()` is required for these functions to work.
+**Note:** A `Meteor.user()` is required for these functions to work. Additionally, all `user` objects need to have an `emails` property with the following pattern:
+
+```
+emails: [{address: 'email@email.com', verified: bool}]
+```
+
+Depending on what Accounts signup method you are using (Facebook, Google, etc) you may need to use the `Accounts.onCreateUser(func)` to make sure that all `user` objects have the above pattern.
 
 ### StripeEasy.submitHelper(e)
 
