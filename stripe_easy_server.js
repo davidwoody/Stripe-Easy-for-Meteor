@@ -22,7 +22,17 @@ Meteor.methods({
     var future = new Future();
 
     var user = Meteor.users.findOne({_id: this.userId});
-    var email = user.emails[0].address;
+    if (user.services.facebook != undefined) {
+       var  email = user.services.facebook.email;
+    }
+
+    if (user.services.google != undefined) {
+       var  email = user.services.google.email;
+    }
+
+    if (user.services.password != undefined) {
+       var  email = user.emails[0].address;
+    }
 
     var bound = Meteor.bindEnvironment(function(err, customer){
       if(err) {
