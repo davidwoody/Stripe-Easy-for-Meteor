@@ -1,6 +1,6 @@
 Package.describe({
   summary: "Subsciptions with Stripe made easy for Meteor.",
-  version: "0.0.1",
+  version: "0.0.2",
   name: "woody:stripe-easy",
   git: "https://github.com/davidwoody/Stripe-Easy-for-Meteor.git"
 });
@@ -23,6 +23,6 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('woody:stripe');
-  api.addFiles('woody:stripe-tests.js');
+  api.use('woody:stripe-easy');
+  api.addFiles('stripe_easy_tests.js');
 });

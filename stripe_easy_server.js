@@ -15,23 +15,28 @@ if(typeof Stripe === "undefined"){
 Meteor.methods({
   stripeEasySubscribe: function(token, plan_id){
     if(!this.userId){
-      throw new Meteor.Error(401, "Not an authorized user.");
+      throw new Meteor.Error(401, "No userId found by stripeEasySubscribe method");
     }
 
     var Future = Npm.require("fibers/future");
     var future = new Future();
 
     var user = Meteor.users.findOne({_id: this.userId});
-    if (user.services.facebook != undefined) {
-       var  email = user.services.facebook.email;
-    }
+    var services = user.services;
+    var email = null;
 
-    if (user.services.google != undefined) {
-       var  email = user.services.google.email;
-    }
-
-    if (user.services.password != undefined) {
-       var  email = user.emails[0].address;
+    if(user && services){
+      if(services.facebook && services.facebook.email){
+        email = services.facebook.email;
+      } else if(services.google && services.google.email){
+        email = services.google.email;
+      } else if(user.emails && user.emails[0] && user.emails[0].address){
+        email = user.emails[0].address;
+      } else {
+        throw new Meteor.Error(400, "stripeEasySubscribe Method was unable to find an email address for the signed in user");
+      }
+    } else {
+      throw new Meteor.Error(400, "No services found on user object");
     }
 
     var bound = Meteor.bindEnvironment(function(err, customer){
