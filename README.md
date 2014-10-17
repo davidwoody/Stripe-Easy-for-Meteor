@@ -47,7 +47,7 @@ Awesome. Subscriptions are up.
   <button type="submit">Submit</button>
 </form>
 ```
-6. Handle the submit event on the form. Note that the StripeEasy functions require a `Meteor.user()` with an `emails` property (see API - StripeEasy - client below for more details). So assuming you either already have a user logged in or your call `Meteor.createUser` first, you would handle the event as follows:
+6. Handle the submit event on the form. Note that the StripeEasy functions require a `Meteor.user()`. So assuming you either already have a user logged in or your call `Meteor.createUser` first, you would handle the event as follows:
 ```
 'submit form': function (e) {
   e.preventDefault();
@@ -69,13 +69,7 @@ StripeEasy.update(plan_id, function(err, result){
 
 ## API - StripeEasy - (client)
 
-**Note:** A `Meteor.user()` is required for these functions to work. Additionally, all `user` objects need to have an `emails` property with the following pattern:
-
-```
-emails: [{address: 'email@email.com', verified: bool}]
-```
-
-Depending on what Accounts signup method you are using (Facebook, Google, etc) you may need to use the `Accounts.onCreateUser(func)` to make sure that all `user` objects have the above pattern.
+**Note:** A `Meteor.user()` is required for these functions to work.
 
 ### StripeEasy.submitHelper(e)
 
