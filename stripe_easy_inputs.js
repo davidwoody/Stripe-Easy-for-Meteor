@@ -29,7 +29,30 @@ Template.stripeEasyInputs.events({
 
 
 Template.stripeEasyInputs.helpers({
-  inputClasses: function(){
+  inputClasses: function () {
     return StripeEasy.configurable.inputClasses;
-  }
+  },
+  errorClasses: function () {
+    return StripeEasy.configurable.errorClasses;
+  },
+  stripeEasyErrors: function () {
+    var error = Session.get('stripeEasyError');
+    if(error.reason){
+      return error.reason;
+    } else if(error.message){
+      return error.message;
+    } else if(error) {
+      return 'Something went wrong. Please double check your inputs';
+    }
+  },
+  hasError: function () {
+    var error = Session.get('stripeEasyError');
+    if(error){
+      return true;
+    }
+  },
 });
+
+Template.stripeEasyInputs.destroyed = function () {
+   Session.set('stripeEasyError', null);
+};

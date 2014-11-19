@@ -70,7 +70,8 @@ _.extend(StripeEasy, {
   }, //submitHelper
 
   configurable: {
-    inputClasses: "", //default, update to input-lg or input-sm
+    inputClasses: '', //default, update to input-lg or input-sm
+    errorClasses: '', //default, add a custom class
   },
 
 

@@ -1,5 +1,10 @@
 <template name="stripeEasyInputs">
   <fieldset>
+    {{#if hasError}}
+    <div class="alert alert-danger {{errorClasses}}" role="alert">
+      <strong>Oops!</strong> {{stripeEasyErrors}}
+    </div>
+    {{/if}}
     <div class="form-group">
       <div class="input-group">
         <div class="input-group-addon"><i class="fa fa-credit-card"></i></div>

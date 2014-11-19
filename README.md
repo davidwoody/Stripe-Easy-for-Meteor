@@ -15,7 +15,11 @@ If you are looking for a quick and simple way to add subscriptions to your Meteo
 var easy = StripeEasy.submitHelper(e);
 var plan_id = "PLAN_ID_FROM_STRIPE"
 StripeEasy.subscribe(easy, plan_id, function(err, result){
-  // do something
+  if(err){
+    Session.set('stripeEasyError', err); // show error to user
+  } else {
+    //do something
+  }
 });
 ```
 
@@ -55,6 +59,9 @@ Awesome. Subscriptions are up.
   var easy = StripeEasy.submitHelper(e);
   var plan_id = "STRIPE_PLAN_ID"; // set however you want, via Session variable or a part of the form.
   StripeEasy.subscribe(easy, plan_id, function(err, result){
+    if(err){
+      Session.set('stripeEasyError', err); // show error to user
+    }
     // if no error, will return the newly created customer object from Stripe
   });
 },
@@ -93,15 +100,18 @@ Cancels the currently logged in users subscription plan. The callback function s
 
 ### StripeEasy.config(obj)
 
-Easily add CSS classes to the inputs by passing `{inputClasses: "input-lg custom-class-name"}`to the StripeEasy.config function.
+Easily add CSS classes to the inputs and error div by passing `{inputClasses: "input-lg custom-class-name", errorClasses: 'class-name'}`to the StripeEasy.config function.
 
 ### Errors
 
 If an error occurs when a user is attempting to subscribe (i.e. incorrect credit card number) the error is stored in the session variable `stripeEasyError`. You can access this via `Session.get('stripeEasyError')`.
 
+If `stripeEasyInputs` is being used, an alert will be shown to the user if there is a `stripeEasyError`. Test an error out by using one of the defined error card numbers on [Stripe](https://stripe.com/docs/testing). 
+
+
 ### Plays nicely with Bootstrap and Font-Awesome
 
-Has bootstrap error class validation built into the inputs on blur, and also adds icons when bootstrap and font-awesome are added to your project.
+Has bootstrap error class validation built into the `stripeEasyInputs` on blur, and also adds icons when bootstrap and font-awesome are added to your project.
 
 ## TODO
 
