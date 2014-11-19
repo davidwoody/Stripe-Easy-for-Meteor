@@ -26,7 +26,7 @@ Awesome. Subscriptions are up.
 
 1. Sign up for an account at Stripe - https://stripe.com/
 2. Open up your dashboard and create some subscription plans. **Make note of the plan id** for each plan you make. You will need this in Step 6 - https://dashboard.stripe.com/
-3. Find your Stripe **test** api keys - https://dashboard.stripe.com/account/apikeys 
+3. Find your Stripe **test** api keys - https://dashboard.stripe.com/account/apikeys
 4. Set up your test keys by A) creating a `settings.json` file in the root of your project directory, B) copy/paste the code below replacing the placeholder text with your appropriate keys. C) Startup Meteor with those setting by running `meteor --settings settings.json` in your terminal.
 ```
 {
@@ -73,11 +73,11 @@ StripeEasy.update(plan_id, function(err, result){
 
 ### StripeEasy.submitHelper(e)
 
-Returns an object to pass to `StripeEasy.subscribe()`. Where `e` is a jQuery submit form event. 
+Returns an object to pass to `StripeEasy.subscribe()`. Where `e` is a jQuery submit form event.
 
 ### StripeEasy.subscribe(obj, plan_id, callback)
 
-Where `obj` is the object returned from `StripeEasy.submitHelper(e)`. 
+Where `obj` is the object returned from `StripeEasy.submitHelper(e)`.
 
 The callback function should have two arguments, an `error` and a `result` argument. On success, it subscribes the curretnly logged in user to the specified plan_id and will modify the user's `profile.stripe` to have a `customerId` and a `subscription` property.
 
@@ -94,6 +94,10 @@ Cancels the currently logged in users subscription plan. The callback function s
 ### StripeEasy.config(obj)
 
 Easily add CSS classes to the inputs by passing `{inputClasses: "input-lg custom-class-name"}`to the StripeEasy.config function.
+
+### Errors
+
+If an error occurs when a user is attempting to subscribe (i.e. incorrect credit card number) the error is stored in the session variable `stripeEasyError`. You can access this via `Session.get('stripeEasyError')`.
 
 ### Plays nicely with Bootstrap and Font-Awesome
 
