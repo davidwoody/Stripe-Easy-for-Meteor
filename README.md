@@ -86,17 +86,17 @@ Returns an object to pass to `StripeEasy.subscribe()`. Where `e` is a jQuery sub
 
 Where `obj` is the object returned from `StripeEasy.submitHelper(e)`.
 
-The callback function should have two arguments, an `error` and a `result` argument. On success, it subscribes the curretnly logged in user to the specified plan_id and will modify the user's `profile.stripe` to have a `customerId` and a `subscription` property.
+The callback function should have two arguments, an `error` and a `result` argument. On success, it subscribes the curretnly logged in user to the specified plan_id and will modify the user's `user.stripe` to have a `customerId` and a `subscription` property.
 
 ### StripeEasy.update(plan_id, callback)
 
 Where `plan_id` is the new plan_id to update to.
 
-The callback function should have two arguments, an `error` and a `result` argument. On success, will update the currently logged in user's `profile.stripe.subscription` property with the new subscription and return the subscription object.
+The callback function should have two arguments, an `error` and a `result` argument. On success, will update the currently logged in user's `user.stripe.subscription` property with the new subscription and return the subscription object.
 
 ### StripeEasy.cancel(callback)
 
-Cancels the currently logged in users subscription plan. The callback function should have two arguments, an `error` and a `result` argument. On success, will update the currently logged in user's `profile.stripe.subscription` property.
+Cancels the currently logged in users subscription plan. The callback function should have two arguments, an `error` and a `result` argument. On success, will update the currently logged in user's `user.stripe.subscription` property.
 
 ### StripeEasy.config(obj)
 
