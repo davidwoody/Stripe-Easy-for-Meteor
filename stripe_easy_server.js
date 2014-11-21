@@ -50,7 +50,7 @@ Meteor.methods({
         // console.log("subscription data!!!!!");
         // console.log(customer.subscriptions.data[0]);
         // update the user object
-        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.customerId": customer.id, "profile.stripe.subscription": customer.subscriptions.data[0]}});
+        Meteor.users.update({_id: user._id}, {$set: {"stripe.customerId": customer.id, "stripe.subscription": customer.subscriptions.data[0]}});
         future.return(customer);
       }
     });
@@ -79,14 +79,14 @@ Meteor.methods({
       }
       else {
         // console.log(subscription);
-        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.subscription": subscription}});
+        Meteor.users.update({_id: user._id}, {$set: {"stripe.subscription": subscription}});
         future.return(subscription);
       }
     });
 
     Stripe.customers.updateSubscription(
-      user.profile.stripe.customerId,
-      user.profile.stripe.subscription.id,
+      user.stripe.customerId,
+      user.stripe.subscription.id,
       { plan: plan_id },
       bound
     );
@@ -110,14 +110,14 @@ Meteor.methods({
       }
       else {
         // console.log(subscription);
-        Meteor.users.update({_id: user._id}, {$set: {"profile.stripe.subscription": subscription}});
+        Meteor.users.update({_id: user._id}, {$set: {"stripe.subscription": subscription}});
         future.return(subscription);
       }
     });
 
     Stripe.customers.cancelSubscription(
-      user.profile.stripe.customerId,
-      user.profile.stripe.subscription.id,
+      user.stripe.customerId,
+      user.stripe.subscription.id,
       bound
     );
 
